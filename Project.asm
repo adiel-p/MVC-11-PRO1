@@ -9,7 +9,7 @@ AND R3, R3, #0		; clear R3
 AND R4, R4, #0		; clear R4
 AND R5, R5, #0		; clear R5
 AND R6, R6, #0		; clear R6
-AND R7, R6, #0		; clear R7
+AND R7, R7, #0		; clear R7
 
 ;for loop for user input
 
@@ -21,7 +21,7 @@ INLOOP	AND R0, R0, #0		; clear R0
 	PUTS
 	
 	AND R0, R0, #0		; clears R0
-	GETC			; input character -> R0
+	IN			; input character -> R0
 	
 	; convert input from ASCii to int
 	ADD R0, R0, #-16
@@ -59,7 +59,7 @@ INLOOP	AND R0, R0, #0		; clear R0
 		BR TLOOP
 	
 DONE	AND R0, R0, #0		; clears R0
-	GETC			; input SECOND digit character -> R0
+	IN			; input SECOND digit character -> R0
 	
 	; convert input from ASCii to int
 	ADD R0, R0, #-16
@@ -71,14 +71,69 @@ DONE	AND R0, R0, #0		; clears R0
 	STR R0, R2, #0		; store inputted character in memory address stored in R3
 	ADD R2, R2, #1		; increment R3 (memory location)
 	ADD R1, R1, #-1		; decrement R2 (counter
-	BRp INLOOP		
+	BRp INLOOP
+
+AND R0, R0, #0		; clear R0
+AND R1, R1, #0		; clear R1
+AND R2, R2, #0		; clear R2
+AND R3, R3, #0		; clear R3
+AND R4, R4, #0		; clear R4
+AND R5, R5, #0		; clear R5
+AND R6, R6, #0		; clear R6
+AND R7, R7, #0		; clear R7
+
+LD R1, OUTCOUNTER
+LD R2, ARRAY
+LD R5, ASCII
+
+
+OUTLOOP	LDR R0, R2, #0		; load value from memory in R0
+	
+	JSR DIVISION
+	AND R0, R0, #0		; clear R0
+	LD R0, QUOTO
+	ADD R0, R0, R5
+	OUT
+	AND R0, R0, #0
+	LD R0, REM
+	ADD R0, R0, R5
+	OUT
+
+	AND R0, R0, #0
+	
+	ADD R2, R2, #1		; increment array base address
+	ADD R1, R1, #-1		; decrement counter register R2	
+	BRp OUTLOOP		
 
 HALT
 
-INMSG		.STRINGZ "\nEnter the test score: "
+INMSG		.STRINGZ "\nInput the test score: "
 ARRAY		.FILL x3040
 				; Number will be stored in
 				; addresses x3040 - x3044 
-INCOUNTER	.FILL #5
+INCOUNTER		.FILL #5
+OUTCOUNTER		.FILL #5
+ASCII		.FILL x30	; ascii offset
+
+
+DIVISION	AND R3, R3, #0	; clear R3
+		ADD R3, R0, #0	; add x to R3
+		AND R4, R4, #0	; clear R4
+		ADD R4, R4, #10	; add 10 to R4, denomenator
+		AND R6, R6, #0	; clear R6, quotent
+		NOT R4, R4
+		ADD R4, R4, #1	; 2's complement
+		
+		DIV	ADD R3, R3, R4	; x = x - y
+			BRn ENDDIV
+			ADD R6, R6, #1
+			ST R3, REM
+			BR DIV
+
+		ENDDIV	ST R6, QUOTO
+			RET
+
+REM		.FILL #0
+QUOTO		.FILL #0
 
 .END
