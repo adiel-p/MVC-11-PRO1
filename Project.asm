@@ -16,6 +16,8 @@ AND R7, R7, #0		; clear R7
 LD R1, INCOUNTER
 LD R2, ARRAY
 
+
+; This loop is used for the user to input there scores 
 INLOOP	AND R0, R0, #0		; clear R0
 	LEA R0, INMSG
 	PUTS
@@ -89,13 +91,17 @@ LD R5, ASCII
 
 OUTLOOP	LDR R0, R2, #0		; load value from memory in R0
 	
-	JSR DIVISION
+	JSR DIVISION		; go to the subroutine DIVISION
 	AND R0, R0, #0		; clear R0
-	LD R0, QUOTO
+	AND R3, R3, #0
+	LD R3, QUOTO
+	ADD R0, R0, R3
 	ADD R0, R0, R5
 	OUT
 	AND R0, R0, #0
-	LD R0, REM
+	AND R6, R6, #0
+	LD R6, REM
+	ADD R0, R0, R6
 	ADD R0, R0, R5
 	OUT
 
