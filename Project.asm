@@ -88,22 +88,38 @@ LD R1, OUTCOUNTER
 LD R2, ARRAY
 LD R5, ASCII
 
-
 OUTLOOP	LDR R0, R2, #0		; load value from memory in R0
 	
 	JSR DIVISION		; go to the subroutine DIVISION
 	AND R0, R0, #0		; clear R0
+	AND R6, R6, #0
+	LD R6, QUOTO
+	ADD R0, R0, R6
+	ADD R0, R0, R5
+	OUT
+
+	AND R0, R0, #0
 	AND R3, R3, #0
-	LD R3, QUOTO
+	LD R3, REM
 	ADD R0, R0, R3
 	ADD R0, R0, R5
 	OUT
-	AND R0, R0, #0
+
+	; The same lines are repeated to display the second digit, except
+	; That only the REM is loaded and displayed. 
+	
+	LDR R0, R2, #0		; load value from memory in R0
+	JSR DIVISION		; go to the subroutine DIVISION
+	AND R0, R0, #0		; clear R0
 	AND R6, R6, #0
 	LD R6, REM
 	ADD R0, R0, R6
 	ADD R0, R0, R5
 	OUT
+
+	AND R0, R0, #0
+	LEA R0, ENDL
+	PUTS
 
 	AND R0, R0, #0
 	
@@ -114,11 +130,12 @@ OUTLOOP	LDR R0, R2, #0		; load value from memory in R0
 HALT
 
 INMSG		.STRINGZ "\nInput the test score: "
+ENDL		.STRINGZ "\n"
 ARRAY		.FILL x3040
 				; Number will be stored in
 				; addresses x3040 - x3044 
-INCOUNTER		.FILL #5
-OUTCOUNTER		.FILL #5
+INCOUNTER	.FILL #5
+OUTCOUNTER	.FILL #5
 ASCII		.FILL x30	; ascii offset
 
 
@@ -139,7 +156,7 @@ DIVISION	AND R3, R3, #0	; clear R3
 		ENDDIV	ST R6, QUOTO
 			RET
 
-REM		.FILL #0
-QUOTO		.FILL #0
+REM		.FILL x3100
+QUOTO		.FILL x3101
 
 .END
