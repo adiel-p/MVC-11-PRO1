@@ -126,7 +126,55 @@ OUTLOOP	LDR R0, R2, #0		; load value from memory in R0
 	
 	ADD R2, R2, #1		; increment array base address
 	ADD R1, R1, #-1		; decrement counter register R2	
-	BRp OUTLOOP		
+	BRp OUTLOOP
+
+AND R0, R0, #0		; clear R0
+AND R1, R1, #0		; clear R1
+AND R2, R2, #0		; clear R2
+AND R3, R3, #0		; clear R3
+AND R4, R4, #0		; clear R4
+AND R5, R5, #0		; clear R5
+AND R6, R6, #0		; clear R6
+AND R7, R7, #0		; clear R7
+
+LD R1, OUTCOUNTER
+LD R2, ARRAY
+LD R5, ASCII
+
+MAXLOOP	LDR R3, R2, #0	
+
+	STI R3, X
+	LDI R3, X	; to discard
+	LDI R4, Y	; to keep
+
+	NOT R4, R4	; 2's complement, -x
+	ADD R4, R4, #1
+	ADD R3, R4, R3
+	BRn NEGMAX
+	LDI R4, X	
+	STI R4, Y
+
+	ADD R2, R2, #1		; increment array base address
+	ADD R1, R1, #-1		; decrement counter register R2	
+	BRp MAXLOOP
+
+NEGMAX	LDI R4, Y
+	STI R4, Y
+	
+	ADD R2, R2, #1		; increment array base address
+	ADD R1, R1, #-1		; decrement counter register R2	
+	BRp MAXLOOP
+
+AND R0, R0, #0		; clear R0
+AND R1, R1, #0		; clear R1
+AND R2, R2, #0		; clear R2
+AND R3, R3, #0		; clear R3
+AND R4, R4, #0		; clear R4
+AND R5, R5, #0		; clear R5
+AND R6, R6, #0		; clear R6
+AND R7, R7, #0		; clear R7
+
+
 
 HALT
 
@@ -157,7 +205,10 @@ DIVISION	AND R3, R3, #0	; clear R3
 		ENDDIV	ST R6, QUOTO
 			RET
 
+
 REM		.FILL x3100
 QUOTO		.FILL x3101
+X		.FILL x3105
+Y		.FILL x3106
 
 .END
