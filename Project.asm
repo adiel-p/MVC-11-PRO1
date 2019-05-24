@@ -30,6 +30,7 @@ INLOOP	AND R0, R0, #0		; clear R0
 	ADD R0, R0, #-16
 	ADD R0, R0, #-16
 
+	BRz DONE
 	; for loop for the tenths first digits 
 	; EX: if first digit entered is 6, the for loop
 	; will add 10 six times to make the number a 60
