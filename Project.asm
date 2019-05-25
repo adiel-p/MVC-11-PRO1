@@ -139,7 +139,6 @@ AND R7, R7, #0		; clear R7
 
 LD R1, OUTCOUNTER
 LD R2, ARRAY
-LD R5, ASCII
 
 MAXLOOP	LDR R3, R2, #0	
 
@@ -164,6 +163,37 @@ NEGMAX	LDI R4, Y
 	ADD R2, R2, #1		; increment array base address
 	ADD R1, R1, #-1		; decrement counter register R2	
 	BRp MAXLOOP
+
+AND R0, R0, #0		; clear R0
+AND R1, R1, #0		; clear R1
+AND R2, R2, #0		; clear R2
+AND R3, R3, #0		; clear R3
+AND R4, R4, #0		; clear R4
+AND R5, R5, #0		; clear R5
+AND R6, R6, #0		; clear R6
+AND R7, R7, #0		; clear R7
+
+LD R5, ASCII
+LEA R0, MAXMSG
+PUTS
+
+AND R0, R0, #0
+LDI R0, Y
+JSR DIVISION		; go to the subroutine DIVISION
+AND R0, R0, #0		; clear R0
+AND R6, R6, #0
+LD R6, QUOTO
+ADD R0, R0, R6
+ADD R0, R0, R5
+OUT
+
+AND R0, R0, #0
+AND R3, R3, #0
+LD R3, REM
+ADD R0, R0, R3
+ADD R0, R0, R5
+OUT
+
 
 AND R0, R0, #0		; clear R0
 AND R1, R1, #0		; clear R1
@@ -202,7 +232,6 @@ POSMIN	LDI R4, Y
 	ADD R1, R1, #-1		; decrement counter register R2	
 	BRp MINLOOP
 
-
 AND R0, R0, #0		; clear R0
 AND R1, R1, #0		; clear R1
 AND R2, R2, #0		; clear R2
@@ -235,7 +264,11 @@ HALT
 
 
 
-INMSG		.STRINGZ "\nInput the test score: "
+INMSG		.STRINGZ "\nInput the test score:"
+OUTMSG		.STRINGZ "\nTest Scores: \n"
+MAXMSG		.STRINGZ "\nMAXIMUM:\n"
+MINMSG		.STRINGZ "\nMINIMUM:\n"
+AVGMSG		.STRINGZ "\nAVERAGE:\n"
 ENDL		.STRINGZ "\n"
 ARRAY		.FILL x3040
 				; Number will be stored in
