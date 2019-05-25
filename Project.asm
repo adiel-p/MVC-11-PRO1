@@ -203,7 +203,37 @@ POSMIN	LDI R4, Y
 	BRp MINLOOP
 
 
+AND R0, R0, #0		; clear R0
+AND R1, R1, #0		; clear R1
+AND R2, R2, #0		; clear R2
+AND R3, R3, #0		; clear R3
+AND R4, R4, #0		; clear R4
+AND R5, R5, #0		; clear R5
+AND R6, R6, #0		; clear R6
+AND R7, R7, #0		; clear R7
+
+LD R1, OUTCOUNTER
+LD R2, ARRAY
+
+SUMLOOP	LDR R0, R2, #0
+
+	LDI R3, SUM
+	ADD R3, R3, R0
+
+	STI R3, SUM
+
+	ADD R2, R2, #1		; increment array base address
+	ADD R1, R1, #-1		; decrement counter register R2	
+	BRp SUMLOOP
+
+AND R0, R0, #0
+LDI R0, SUM
+JSR DIVAVG			; go to the subroutine DIVISION
+STI R6, AVG
+
 HALT
+
+
 
 INMSG		.STRINGZ "\nInput the test score: "
 ENDL		.STRINGZ "\n"
@@ -232,12 +262,29 @@ DIVISION	AND R3, R3, #0	; clear R3
 		ENDDIV	ST R6, QUOTO
 			RET
 
+DIVAVG		AND R3, R3, #0	; clear R3
+		ADD R3, R0, #0	; add x to R3
+		AND R4, R4, #0	; clear R4
+		ADD R4, R4, #5	; add 5 to R4, denomenator
+		AND R6, R6, #0	; clear R6, quotent
+		NOT R4, R4
+		ADD R4, R4, #1	; 2's complement
+		
+		DIVA	ADD R3, R3, R4	; x = x - y
+			BRn ENDDIVA
+			ADD R6, R6, #1
+			ST R3, REM
+			BR DIVA
+
+		ENDDIVA	ST R6, DIV
+			RET
 
 REM		.FILL x3100
 QUOTO		.FILL x3101
 X		.FILL x3105
 Y		.FILL x3106
-P		.FILL x3110
-Q		.FILL x3111
+SUM		.FILL x3110
+AVG		.FILL x3111
+
 
 .END
