@@ -144,10 +144,10 @@ LD R5, ASCII
 MAXLOOP	LDR R3, R2, #0	
 
 	STI R3, X
-	LDI R3, X	; to discard
-	LDI R4, Y	; to keep
+	LDI R3, X	; 
+	LDI R4, Y	; 
 
-	NOT R4, R4	; 2's complement, -x
+	NOT R4, R4	; 2's complement, -Y
 	ADD R4, R4, #1
 	ADD R3, R4, R3
 	BRn NEGMAX
@@ -174,6 +174,33 @@ AND R5, R5, #0		; clear R5
 AND R6, R6, #0		; clear R6
 AND R7, R7, #0		; clear R7
 
+LD R1, OUTCOUNTER
+LD R2, ARRAY
+LD R5, ASCII
+
+MINLOOP	LDR R3, R2, #0	
+
+	STI R3, X
+	LDI R3, X	; 
+	LDI R4, Y	; 
+
+	NOT R4, R4	; 2's complement, -Y
+	ADD R4, R4, #1
+	ADD R3, R4, R3
+	BRp POSMIN
+	LDI R4, X	
+	STI R4, Y
+
+	ADD R2, R2, #1		; increment array base address
+	ADD R1, R1, #-1		; decrement counter register R2	
+	BRp MINLOOP
+
+POSMIN	LDI R4, Y
+	STI R4, Y
+	
+	ADD R2, R2, #1		; increment array base address
+	ADD R1, R1, #-1		; decrement counter register R2	
+	BRp MINLOOP
 
 
 HALT
@@ -210,5 +237,7 @@ REM		.FILL x3100
 QUOTO		.FILL x3101
 X		.FILL x3105
 Y		.FILL x3106
+P		.FILL x3110
+Q		.FILL x3111
 
 .END
