@@ -1,5 +1,17 @@
 ; CIS11 Project
 
+; Created by Elizabeth Arias, Jorge Valencia, Adiel Perez
+
+; Option B: Test Score Calculator
+; Description:
+; 		This program collects five 2-digit test scores
+;		from the LC3 console (from the user input). 
+;		It then stores the each test in an array and 
+;		outputs the array in the LC3 console.
+;		The program then calculates the maximum, minimum
+;		and average of the five test scores and displays
+;		the result onto the LC3 console. 
+
 .ORIG x3000
 
 AND R0, R0, #0		; clear R0
@@ -11,7 +23,7 @@ AND R5, R5, #0		; clear R5
 AND R6, R6, #0		; clear R6
 AND R7, R7, #0		; clear R7
 
-LD R1, INCOUNTER
+LD R1, SIZE
 LD R2, ARRAY
 
 ; This loop is used for the user to input there scores 
@@ -77,7 +89,7 @@ AND R1, R1, #0		; clear R1
 AND R2, R2, #0		; clear R2
 AND R5, R5, #0		; clear R5
 
-LD R1, OUTCOUNTER
+LD R1, SIZE
 LD R2, ARRAY
 LD R5, ASCII
 
@@ -120,7 +132,7 @@ OUTLOOP	LDR R0, R2, #0		; load value from memory in R0
 AND R1, R1, #0		; clear R1
 AND R2, R2, #0		; clear R2
 
-LD R1, OUTCOUNTER
+LD R1, SIZE
 LD R2, ARRAY
 
 ; this loop finds the maximum value, and stores in MAX (x3107)
@@ -154,7 +166,7 @@ STI R4, MAX
 AND R1, R1, #0		; clear R1
 AND R2, R2, #0		; clear R2
 
-LD R1, OUTCOUNTER
+LD R1, SIZE
 LD R2, ARRAY
 
 ; this loop finds the MINIMUM value and stores in Y (x3106)
@@ -188,7 +200,7 @@ STI R4, MIN
 AND R1, R1, #0		; clear R1
 AND R2, R2, #0		; clear R2
 
-LD R1, OUTCOUNTER
+LD R1, SIZE
 LD R2, ARRAY
 
 ; gets the sum of the array and stores it in SUM (x3101)
@@ -210,13 +222,35 @@ LDI R0, SUM			; loads the sum into R0
 JSR DIVAVG			; go to the subroutine DIVISION
 STI R6, AVG			; stores R6 into AVG
 
+; displays the maximum value of the test
+AND R0, R0, #0			; clear R0
+LEA R0, MAXMSG			; loads the maximum message to R0
+PUTS
+AND R0, R0, #0			; clear R0
+LDI R0, MAX			; loads the maximum into R0
+JSR DISPLAY			; go to the subroutine DISPLAY
+
+; displays the minimum value of the tests 
+AND R0, R0, #0			; clear R0
+LEA R0, MINMSG			; loads the minimum message to R0
+PUTS
+AND R0, R0, #0			; clear R0
+LDI R0, MIN			; loads the minimum into R0
+JSR DISPLAY			; go to the subroutine DISPLAY
+
+; displays the average value of the tests 
+AND R0, R0, #0			; clear R0
+LEA R0, AVGMSG			; loads the average message to R0
+PUTS
+AND R0, R0, #0			; clear R0
+LDI R0, AVG			; loads the average into R0
+JSR DISPLAY			; go to the subroutine DISPLAY
+
 HALT
 
-ARRAY		.FILL x3040
-				; Number will be stored in
+ARRAY		.FILL x3040	; Number will be stored in
 				; addresses x3040 - x3044 
-INCOUNTER	.FILL #5
-OUTCOUNTER	.FILL #5
+SIZE		.FILL #5	; size of the array
 ASCII		.FILL x30	; ascii offset
 
 X		.FILL x3105
@@ -228,7 +262,36 @@ AVG		.FILL x3111	; address for average
 
 INMSG		.STRINGZ "\nInput the test score:"
 SPACE		.STRINGZ " "
+MAXMSG		.STRINGZ "\nMAX: "
+MINMSG		.STRINGZ "\nMIN: "
+AVGMSG		.STRINGZ "\nAVG: "
 
+; display subroutine used to display the min, max, and average
+DISPLAY		ST R7, SaveR7		; save R7
+		; Division is used to display the first digit of the number
+		; by collecting the quotent and displaying it
+		; remainder is used to display the second digit
+		JSR DIVISION		; go to the subroutine DIVISION
+		AND R0, R0, #0		; clear R0
+		AND R6, R6, #0		; clear R6
+		LD R6, QUOTO		; load Quotent in R6	
+		AND R5, R5, #0
+		LD R5, ASCII
+		ADD R0, R0, R6		; store R6 in R0
+		ADD R0, R0, R5		; convert from int to ASCII
+		OUT 	
+
+		AND R0, R0, #0		; clear R0
+		AND R3, R3, #0		; clear R3
+		LD R3, REM		; load remainder in R3
+		ADD R0, R0, R3		; store R3 into R0
+		ADD R0, R0, R5		; convert from int to ASCII
+		OUT
+		LD R7, SaveR7		; restore R7
+		
+		RET	
+
+; division subroutine used for displaying two digit numbers 
 DIVISION	AND R3, R3, #0	; clear R3
 		ADD R3, R0, #0	; add x to R3
 		AND R4, R4, #0	; clear R4
@@ -246,6 +309,7 @@ DIVISION	AND R3, R3, #0	; clear R3
 		ENDDIV	ST R6, QUOTO
 			RET
 
+; division subroutine used to find the average. SUM/5 = AVG
 DIVAVG		AND R3, R3, #0	; clear R3
 		ADD R3, R0, #0	; add x to R3
 		AND R4, R4, #0	; clear R4
@@ -265,5 +329,6 @@ DIVAVG		AND R3, R3, #0	; clear R3
 
 REM		.FILL x3100
 QUOTO		.FILL x3101
+SaveR7		.FILL #0
 
 .END
