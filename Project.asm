@@ -179,7 +179,7 @@ MINLOOP	LDR R3, R2, #0
 	NOT R4, R4	; 2's complement, -Y
 	ADD R4, R4, #1
 	ADD R3, R4, R3	; X - Y
-	BRp POSMIN	; if it is positive, switch because its MIN
+	BRp POSMIN	; if it is positive, switch because (Y?? is) its MIN
 	LDI R4, X	
 	STI R4, Y
 
