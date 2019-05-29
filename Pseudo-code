@@ -24,25 +24,28 @@ integerTwo = characterTwo is now equivalent to an integer
 onesDigit = integerTwo
 score = tenthsDigit + onesDigit
 Store the score into SIZE-1 index of the array (ARRAY[SIZE-1])
- Decrease the SIZE by 1 (--SIZE)
-for(values in array addresses x3140 to x3144)
+Decrease the SIZE by 1 (--SIZE)
+for(values in array addresses x3140 to x3144 o)
 {
 tensValue = score / 10
 onesValue = score % 10
 outputScore = tensValue,onesValue 
 /*since we can only work with one digit at a time you just output each digit side by side*/
 Output <-outputScore
+}
+//for loop that finds the max score
+for(values in array addresses x3140 to x3144)
+{
+// The value of X that is first used is the first score that was entered
+Take the first value in base case address x3140 (X) and subtract a selected value for Y 
+if(X-Y < 0) //BRn NEGMAX
+{
 
+} 									
 }
 
 
 
-Take value of the base case address x3140 (X) and a chosen value for Y
- 
-
-			
-									
-EXIT
 
 
 
@@ -57,19 +60,3 @@ EXIT
 
 
 
-
-
-Enter all five numbers into an array
-Prompt user to enter the five numbers (use Trap x23) Where does Trap x23 send values to?
-	Store all the values
-STR all values (base case address + 4 more addresses)
-
-1.	Go through each index to determine the minimum and the max
-Loop through the array until the minimum is found by …
-Loop through the array until the maximum is found by…
-2.	Calculate the average of the five numbers
-Go to addresses of where the five numbers were stored and average the five numbers
-Store the value of the average in a new location
-Access the value of the average and output it to the console
-Associate the value of the average to an actual letter grade by connecting the scale to a letter
-3.	Output the grade 
