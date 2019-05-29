@@ -13,7 +13,7 @@ After downloading and opening the file there will be two programs you will need 
 		Now you will have to create the .obj file in order to test our code. So next go to
 		Translate > assemble
 		Now after doing this - a TestScore.obj file will be saved in the same folder (The same folder
-		containing the TestScore.asm file.
+		containing the TestScore.asm file).
 		Now you can exit the program and open the next program. 
 	2. Simulate.exe
 		The Simulate.exe program will be used to run the TestScores.obj file that you just assembled.
@@ -21,12 +21,12 @@ After downloading and opening the file there will be two programs you will need 
 		the .obj file and the LC3 Console is used to display any output or collect input from the user. 
 		So in order to run the .obj file you will go to File > Load Program > TestScores.obj (You'll find 
 		the file in the same folder you saved the TestScores.asm file)
-		You simulator change. meaning the the .obj file has been successful loaded.
-		Now you will need to run the program so go to Execute > Run. 
+		The LC3 Simulator should change. Meaning that the .obj file has been successful loaded.
+		Now you will need to run the program so now you go to Execute > Run. 
 		The program will now start to run and something should display onto the LC3 Console which will 
 		move us to the next step.
 
-B. HOW TO RUN THE TEST SCORES PROGRAM
+B. HOW TO USE THE TEST SCORES PROGRAM
 On the LC3 Console an output should display "Input the test score: ". This is asking the user to input the first 
 test score. NOTE: The user will only be able to input 2-DIGIT test scores, so no scores greater than 99. 
 (WARNING: ANY CHARACTERS OR SYMBOLS INPUTTED WILL CAUSE THE PROGRAM TO RUN INCORRECTLY)
