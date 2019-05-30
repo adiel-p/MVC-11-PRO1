@@ -144,7 +144,7 @@ MAXLOOP	LDR R3, R2, #0
 	NOT R4, R4	; 2's complement, -Y
 	ADD R4, R4, #1
 	ADD R3, R4, R3	; X - Y
-	BRn NEGMAX	; if it is a negative, keep as MAX
+	BRn NEGMAX	; if it is a negative, keep Y as MAX
 	LDI R4, X	; else switch the numbers
 	STI R4, Y
 
