@@ -38,10 +38,6 @@ Take a value from the array and subtract a selected value of 0 for Y
 //for loop that finds the max score
 for(values in array addresses x3140 to x3144)
 {
-Increment base case address by 1 
-Load the value at that address to the address for X
-Then operate X-Y
-
 if(X-Y < 0) //BRn NEGMAX
 {
 The maximum is Y and stores into the address of Y						
@@ -51,7 +47,13 @@ The maximum is X and the value gets passed to Y and stored into the address of Y
 }
 Else
 There is no difference and both numbers are the maximum the value of X gets passed and stored into the address of Y
+}
+Increment base case address by 1 
+Load the value at that address to the address for X
+Then operate X-Y
+
 	}
+	Display the maximum
 
 Take the value at the base case from the array and subtract the last maximum value 
 //for loop that finds the min score
@@ -73,9 +75,16 @@ Load the value at that address to the address for X
 Then operate X-Y
 
 	}
+	Display the Minimum
+for(values in array addresses x3140 to x3144)
+{
+	Add up all the scores
+	Divide by the number of scores (SUM/SIZE)
+}
+Display the average
 		
 
-
+}
 			
 									
 EXIT
@@ -84,15 +93,4 @@ EXIT
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+ 
