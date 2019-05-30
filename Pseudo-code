@@ -33,16 +33,52 @@ outputScore = tensValue,onesValue
 /*since we can only work with one digit at a time you just output each digit side by side*/
 Output <-outputScore
 }
+// The value of X that is first used is the first score that was entered
+Take a value from the array and subtract a selected value of 0 for Y 
 //for loop that finds the max score
 for(values in array addresses x3140 to x3144)
 {
-// The value of X that is first used is the first score that was entered
-Take the first value in base case address x3140 (X) and subtract a selected value for Y 
+Increment base case address by 1 
+Load the value at that address to the address for X
+Then operate X-Y
+
 if(X-Y < 0) //BRn NEGMAX
 {
-
-} 									
+The maximum is Y and stores into the address of Y						
+else if (X-Y >  0)
+{
+The maximum is X and the value gets passed to Y and stored into the address of Y
 }
+Else
+There is no difference and both numbers are the maximum the value of X gets passed and stored into the address of Y
+	}
+
+Take the value at the base case from the array and subtract the last maximum value 
+//for loop that finds the min score
+
+for(values in array addresses x3140 to x3144)
+{
+if (X-Y < 0) 
+{
+The minimum is X and the value of X gets passed to Y and stores into the address of Y						
+else if (X-Y > 0)
+{
+The minimum is Y and the value gets stored into the address of Y
+}
+Else
+There is no difference and both numbers are the minimum and the value of X gets passed to Y and stored into the address of Y
+	}
+Increment base case address by 1 
+Load the value at that address to the address for X
+Then operate X-Y
+
+	}
+		
+
+
+			
+									
+EXIT
 
 
 
