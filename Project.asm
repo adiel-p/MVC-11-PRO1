@@ -1,9 +1,9 @@
-; CIS11 Project
+;  CIS11 Project
 
-; Created by Elizabeth Arias, Jorge Valencia, Adiel Perez
+;  Created by Elizabeth Arias, Jorge Valencia, Adiel Perez
 
-; Option B: Test Score Calculator
-; Description:
+;  Option B: Test Score Calculator
+;  Description:
 ; 		This program collects five 2-digit test scores
 ;		from the LC3 console (from the user input). 
 ;		It then stores the each test in an array and 
